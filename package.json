@@ -5,9 +5,15 @@
   "preferGlobal": true,
   "bin": {"ng-docserver": "./bin/ng-docserver.js"},
   "engines" : { "node": "*" },
+  "keywords": [
+      "AngularJS",
+      "offline",
+      "document",
+      "server"
+  ],
   "repository": {
       "type": "git",
-      "url": "https://virasak@github.com/virasak/ng-docserver.git"
+      "url": "git://github.com/virasak/ng-docserver.git"
   },
   "dependencies": {
       "adm-zip": "",

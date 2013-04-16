@@ -5,7 +5,7 @@ NodeJS module to serve AngularJS documents directly from distributed zip file.
 
 Install:
 --------
-    npm -g install ng-docserver
+    npm install -g ng-docserver
 
 Usage:
 ------

@@ -1,9 +1,8 @@
 {
   "name": "ng-docserver",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "NodeJS module to serve AngularJS documents directly from distributed zip file",
   "preferGlobal": true,
-  "main": "docserver.js",
   "bin": {"ng-docserver": "./bin/ng-docserver.js"},
   "engines" : { "node": "*" },
   "repository": {

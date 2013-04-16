@@ -1,6 +1,6 @@
 {
   "name": "ng-docserver",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "NodeJS module to serve AngularJS documents directly from distributed zip file",
   "preferGlobal": true,
   "bin": {"ng-docserver": "./bin/ng-docserver.js"},
@@ -16,8 +16,8 @@
       "url": "git://github.com/virasak/ng-docserver.git"
   },
   "dependencies": {
-      "adm-zip": "",
-      "mime": ""
+      "adm-zip": "~0.4.3",
+      "mime": "~1.2.9"
   },
   "author": "Virasak Dungsrikaew",
   "license": "MIT"

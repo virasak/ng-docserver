@@ -7,14 +7,16 @@ if (process.argv.length < 3) {
 
 var zipfile = process.argv[2],
     port = Number(process.argv[3]) || 1337,
-    dirname = zipfile.substr(0, zipfile.lastIndexOf('.')),
+    path = require('path'),
     http = require('http'),
     url = require('url'),
     mime = require('mime'),
-    docZip = require('adm-zip')(zipfile);
+    docZip = require('adm-zip')(zipfile),
+    dirname = path.basename(zipfile, '.zip');
 
 http.createServer(function(req, res){
-    var uri = url.parse(req.url).pathname;
+    var uri = url.parse(req.url).pathname,
+        filePath = dirname + uri;
 
     if (['/', '/docs', '/docs/'].indexOf(uri) > -1) {
         res.writeHead(302, {'Location': '/docs/index.html'});
@@ -22,9 +24,9 @@ http.createServer(function(req, res){
         return;
     }
 
-    docZip.readFileAsync(dirname + uri, function(data){
+    docZip.readFileAsync(filePath, function(data){
         if (data === null) {
-            if (uri.indexOf('/docs/') === 0) {
+            if (uri.indexOf('/docs/') === 0 && uri.indexOf('/docs/index.html#!') !== 0) {
                 res.writeHead(302, {'Location': '/docs/index.html#!' + uri.substr(5)});
                 res.end();
             } else {

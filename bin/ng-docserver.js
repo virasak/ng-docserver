@@ -1,13 +1,20 @@
 #!/usr/bin/env node
 
 if (process.argv.length < 3) {
-    console.log('Usage: ng-docserver angular-x.y.z.zip [port]');
-    return;
+    console.error('Usage: ng-docserver angular-x.y.z.zip [port]');
+    process.exit(1);
 }
 
-var file    = process.argv[2],
-    port    = Number(process.argv[3]) || 1337,
-    zip     = require('adm-zip')(file),
+var file = process.argv[2],
+    port = Number(process.argv[3]) || 1337,
+    fs   = require('fs');
+
+if (!fs.existsSync(file)) {
+    console.error("'%s' is not exists", file);
+    process.exit(1);
+}
+
+var zip     = require('adm-zip')(file),
     dirname = require('path').basename(file, '.zip'),
     mime    = require('mime'),
     url     = require('url'),

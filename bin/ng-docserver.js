@@ -18,13 +18,24 @@ var zip     = require('adm-zip')(file),
     dirname = require('path').basename(file, '.zip'),
     mime    = require('mime'),
     url     = require('url'),
-    http    = require('http');
+    http    = require('http'),
+    etag    = Date.now();
 
 http.createServer(function(req, res) {
+    if (req.headers['if-modified-since'] - etag >= 0) {
+        res.statusCode = 304;
+        res.end();
+        return;
+    }
+
     var pathname = url.parse(req.url).pathname;
+
     zip.readFileAsync(dirname + pathname, function(data) {
         if (data) {
-            res.writeHead(200, {'Content-Type': mime.lookup(pathname)});
+            res.writeHead(200, {
+                'Content-Type': mime.lookup(pathname),
+                'Last-Modified': etag
+            });
             res.write(data);
         } else if (['/', '/docs', '/docs/'].indexOf(pathname) > -1) {
             res.writeHead(302, {'Location': '/docs/index.html'});

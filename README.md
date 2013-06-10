@@ -10,4 +10,4 @@ Install:
 Usage:
 ------
 
-    ng-docserver angular-x.y.z.zip [port]
+    ng-docserver path/to/angular-x.y.z.zip [port]

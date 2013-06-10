@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 if (process.argv.length < 3) {
-    console.error('Usage: ng-docserver angular-x.y.z.zip [port]');
+    console.error('Usage: ng-docserver path/to/angular-x.y.z.zip [port]');
     process.exit(1);
 }
 
@@ -18,11 +18,12 @@ var zip     = require('adm-zip')(file),
     dirname = require('path').basename(file, '.zip'),
     mime    = require('mime'),
     url     = require('url'),
-    http    = require('http'),
-    etag    = Date.now();
+    http    = require('http');
+
+var lastModified = Date.now();
 
 http.createServer(function(req, res) {
-    if (req.headers['if-modified-since'] - etag >= 0) {
+    if (req.headers['if-modified-since'] - lastModified >= 0) {
         res.statusCode = 304;
         res.end();
         return;
@@ -34,7 +35,7 @@ http.createServer(function(req, res) {
         if (data) {
             res.writeHead(200, {
                 'Content-Type': mime.lookup(pathname),
-                'Last-Modified': etag
+                'Last-Modified': lastModified
             });
             res.write(data);
         } else if (['/', '/docs', '/docs/'].indexOf(pathname) > -1) {

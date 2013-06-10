@@ -1,6 +1,6 @@
 {
   "name": "ng-docserver",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "NodeJS module to serve AngularJS documents directly from distributed zip file",
   "preferGlobal": true,
   "bin": {"ng-docserver": "./bin/ng-docserver.js"},

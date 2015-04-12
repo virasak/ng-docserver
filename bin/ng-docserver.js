@@ -32,7 +32,7 @@ http.createServer(function(req, res) {
     var pathname = url.parse(req.url).pathname;
 
     zip.readFileAsync(dirname + pathname, function(data) {
-        if (data) {
+        if (data && data.length > 0) {
             res.writeHead(200, {
                 'Content-Type': mime.lookup(pathname),
                 'Last-Modified': lastModified
